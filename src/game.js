@@ -1,3 +1,5 @@
+import { currentPlayerTurnMessage, drawMessage, scoreMessage, winningMessage } from "./messages.js";
+
 const statusDisplay = document.querySelector(".game-status");
 const scoreDisplay = document.querySelector(".game-score");
 const gameContainer = document.getElementsByClassName("game-container")[0];
@@ -37,17 +39,9 @@ let playerName = "";
 let opponentName = "";
 let currentPlayerName = "";
 
-// Messages for user
-const winningMessage = () => `${currentPlayer}の勝ち！`;
-const drawMessage = () => `引き分け!`;
-const currentPlayerTurn = () => {
-    return currentPlayerName === "" ? 
-        `${currentPlayer}の番` :
-        `${currentPlayer}(${currentPlayerName})の番`;
-};
-const scoreMessage = () => `${playerScore} - ${opponentScore}`;
-
-handleResetGame();
+window.onload = function(){
+    handleResetGame();
+}
 
 function handlePlayerEntry() {
     singlePlayButton.style.display = "none";
@@ -103,7 +97,7 @@ function handleCellPlayed(clickedCell, clickedCellIndex) {
 function handlePlayerChange() {
     currentPlayer = currentPlayer === playerKanji ? opponentKanji : playerKanji;
     currentPlayerName = currentPlayerName === playerName ? opponentName : playerName;
-    statusDisplay.innerHTML = currentPlayerTurn();
+    statusDisplay.innerHTML = currentPlayerTurnMessage(currentPlayer, currentPlayerName);
 }
 
 function handleResultValidation() {
@@ -129,7 +123,7 @@ function handleResultValidation() {
     }
 
     if (roundWon) {
-        statusDisplay.innerHTML = winningMessage();
+        statusDisplay.innerHTML = winningMessage(currentPlayer);
         if (currentPlayer === playerKanji) {            
             playerScore++;
         }
@@ -137,7 +131,7 @@ function handleResultValidation() {
             opponentScore++;
         }
 
-        scoreDisplay.innerHTML = scoreMessage();
+        scoreDisplay.innerHTML = scoreMessage(playerScore, opponentScore);
         gameActive = false;
         return;
     }
@@ -150,13 +144,12 @@ function handleResultValidation() {
     }
 
     handlePlayerChange();
-    if (currentPlayer === opponentKanji) {
+    if (currentPlayer === opponentKanji && singlePlayMode) {
         computerPlay();
     }
 }
 
 function computerPlay() {
-    let roundWon = false;
     for (let i = 0; i < winningConditions.length; i++) {
         const winCondition = winningConditions[i];
         let cellConditions = new Array(3).fill("");
@@ -199,7 +192,7 @@ function handleRestartGame() {
     gameActive = true;
     currentPlayer = playerKanji;
     currentGameState.fill("");
-    statusDisplay.innerHTML = currentPlayerTurn();
+    statusDisplay.innerHTML = currentPlayerTurnMessage(currentPlayer, currentPlayerName);
     document.querySelectorAll(".cell").forEach(
         cell => cell.innerHTML = ""
     );
@@ -209,7 +202,7 @@ function handleRestartGame() {
 function handleResetGame() {
     playerScore = 0;
     opponentScore = 0;
-    scoreDisplay.innerHTML = scoreMessage();
+    scoreDisplay.innerHTML = scoreMessage(playerScore, opponentScore);
 
     gameContainer.style.display = "none";
     gameVsText.style.display = "none";
