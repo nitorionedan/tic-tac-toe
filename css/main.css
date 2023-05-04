@@ -16,226 +16,37 @@
     --color-footer-back: #D9D9D9;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-.row::after {
-    content: "";
-    clear: both;
-    display: block;
-}
-
-[class*="col-"] {
-    float: left;
-}
-
 body {
+    font-family: "Arial", sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #FFFFFE;
 }
 
-img {
-    width: 100%;
-    height: auto;
-}
-
-/* Header */
 header {
-    padding: 0;
-    margin: 0;
-    margin-bottom: 15px;
-    position: relative;
     background-color: var(--color-primary);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-header > img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 0;
-}
-
-header > h1 {
+section {
     text-align: center;
-    color: var(--color-text-white);
 }
 
-/* Top navigation */
-.topnav {
-    overflow: hidden;
-}
-
-.topnav > .logo {
-    float: left;
-    padding: 14px 16px;
-    font-size: 18px;
-    color: var(--color-text-white);
-    cursor: default;
-}
-
-.topnav > a {
-    float: right;
-    padding: 14px 16px;
-    text-align: center;
-    color: var(--color-text-white);
-    text-decoration: none;
-    font-size: 18px;
-    transition: 0.3s;
-}
-
-.topnav > a:hover {
-    background-color: var(--color-primary-dark);
-}
-
-/* Page contents */
-.container {
-    position: relative;    
-    width: 500px;
-    height: 428px;
-    padding: 10px;
-    margin: 0 auto;
-    margin-bottom: 60px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: 0.3s;
-}
-
-.container > a > .link {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-.container:hover {
-    box-shadow: 1px 1px 10px grey;
-}
-
-.container > img {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: 100%;
-    padding: 3px;
-}
-
-.container > p.title {
-    text-align: left;
-    color: var(--color-text-black);
-    font-size: 24px;
-}
-
-.container > p.date {
-    color: var(--color-text-grey);
-    text-align: left;
-    font-size: 24px;
-}
-
-.taggedimg {
-    height: 250px;
-    background-image: url('../assets/sample3.jpg');
-    background-size: cover;
-    position: relative;
-    font-size: 18px;
-}
-
-.taggedimg > .tag {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    background-color: darkblue;
-    color: var(--color-text-white);
-    padding: 0px 10px;
-}
-
-.taggedimg > .diarytag {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    background-color: green;
-    color: var(--color-text-white);
-    padding: 0px 10px;
-}
-
-.taggedimg > .newstag {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    background-color: orange;
-    color: var(--color-text-white);
-    padding: 0px 10px;
-}
-
-/* Footer */
 footer {
-    padding-top: 10px;
-    text-align: center;
-    height: 50px;
-    background-color: var(--color-footer-back);
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background-color: var(--color-primary);
 }
 
-footer > a {
-    margin: auto;
-    text-decoration: none;
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 306px;
+    margin: 50px auto;
 }
 
-footer > a:not(:first-child) {
-    margin-left: 25px;
-}
-
-footer img {
-    width: 32px;
-    height: 32px;
-}
-
-/* For desktop: */
-.col-10 {width: 10%;}
-.col-8 {width: 12.5%;}
-.col-5 {width: 20%;}
-.col-4 {width: 25%;}
-.col-3 {width: 33.3%;}
-.col-2 {width: 50%;}
-.col-1 {width: 100%;}
-
-/* For mobile devices */
-@media only screen and (max-width: 1070px) {
-    [class*="col-"] {
-        width: 100%;
-    }
-
-    .topnav > .logo {
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-
-    .topnav > a {
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-
-    .container {
-        width: auto;
-        height: 50%;
-        margin-bottom: 15px;
-        margin-left: 15px;
-        margin-right: 15px;
-    }
-
-    .container > p.title {
-        font-size: 18px;
-    }
-    
-    .container > p.date {
-        font-size: 18px;
-    }
-
-    .taggedimg {
-        height: 125px;
-        font-size: 14px;
-    }
+.cell {
+    font-family: "Permanent Marker", cursive;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 0 0 1px #333333;
+    border: 1px solid #333333;
+    cursor: pointer;
+    line-height: 100px;
+    font-size: 60px;
 }
