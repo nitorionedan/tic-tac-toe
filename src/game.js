@@ -95,6 +95,10 @@ function handleCellPlayed(clickedCell, clickedCellIndex) {
 }
 
 function handlePlayerChange() {
+    if (!gameActive) {
+        return;
+    }
+
     currentPlayer = currentPlayer === playerKanji ? opponentKanji : playerKanji;
     currentPlayerName = currentPlayerName === playerName ? opponentName : playerName;
     statusDisplay.innerHTML = currentPlayerTurnMessage(currentPlayer, currentPlayerName);
@@ -142,37 +146,41 @@ function handleResultValidation() {
         gameActive = false;
         return;
     }
-
-    handlePlayerChange();
-    if (currentPlayer === opponentKanji && singlePlayMode) {
-        computerPlay();
-    }
 }
 
 function computerPlay() {
-    for (let i = 0; i < winningConditions.length; i++) {
-        const winCondition = winningConditions[i];
-        let cellConditions = new Array(3).fill("");
-        for (let j = 0; j < winCondition.length; j++) {
-            let cellCondition = currentGameState[winCondition[j]];
-            cellConditions[j] = cellCondition === "" ? "-" : cellCondition;
-        }
+    // for (let i = 0; i < winningConditions.length; i++) {
+    //     const winCondition = winningConditions[i];
+    //     let cellConditions = new Array(3).fill("");
+    //     for (let j = 0; j < winCondition.length; j++) {
+    //         let cellCondition = currentGameState[winCondition[j]];
+    //         cellConditions[j] = cellCondition === "" ? "-" : cellCondition;
+    //     }
 
-        let firstCond = (cellConditions[0] === playerKanji && 
-                        cellConditions[1] === playerKanji);
-        let secondCond = (cellConditions[1] === playerKanji &&
-                        cellConditions[2] === playerKanji);
-        if (firstCond) {
-            currentGameState[winCondition[j]] = currentPlayer;
-            cells[winCondition[j]].innerHTML = currentPlayer;
-        }
-        else if (secondCond) {
+    //     let firstCond = (cellConditions[0] === playerKanji && 
+    //                     cellConditions[1] === playerKanji);
+    //     let secondCond = (cellConditions[1] === playerKanji &&
+    //                     cellConditions[2] === playerKanji);
+    //     if (firstCond) {
+    //         currentGameState[winCondition[j]] = currentPlayer;
+    //         cells[winCondition[j]].innerHTML = currentPlayer;
+    //     }
+    //     else if (secondCond) {
 
-        }
+    //     }
+    // }
 
+    // 空欄のセルをランダムにひとつ決める
+    let blankCellIndexes = new Array();
+    for (let i = 0; i < currentGameState.length; i++) {
+        if (currentGameState[i] === "") {
+            blankCellIndexes.push(i);
+        }
     }
 
-    handlePlayerChange();
+    const index = blankCellIndexes[Math.floor(Math.random() * blankCellIndexes.length)];
+    currentGameState[index] = currentPlayer;
+    cells[index].innerHTML = currentPlayer;
 }
 
 function handleCellClick(clickedCellEvent) {
@@ -186,6 +194,12 @@ function handleCellClick(clickedCellEvent) {
 
     handleCellPlayed(clickedCell, clickedCellIndex);
     handleResultValidation();
+    handlePlayerChange();
+    if (currentPlayer === opponentKanji && singlePlayMode) {
+        computerPlay();
+        handleResultValidation(); 
+        handlePlayerChange();
+    }
 }
 
 function handleRestartGame() {
